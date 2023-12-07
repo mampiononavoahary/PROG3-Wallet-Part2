@@ -78,11 +78,48 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
 
     @Override
     public comptes save(comptes toSave) {
+        try {
+            String sql = "INSERT INTO Comptes(id,nomCompte,solde,dateMisAJour,idDevise,type) VALUES(?,?,?,?,?,?);";
+
+            getConnection();
+            try (PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setInt(1,toSave.getId());
+                statement.setString(2,toSave.getNom_de_compte());
+                statement.setDouble(3,toSave.getSolde());
+                statement.setObject(4,toSave.getSolde_date_mis_a_jour());
+                statement.setInt(5,toSave.getId_devise());
+                statement.setObject(6,toSave.getType());
+
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
     @Override
-    public comptes update(comptes toDelete) {
+    public comptes update(comptes toUpdate) {
+        try {
+            String sql = "UPDATE compte SET nomCompte=?,solde=?,dateMisAJour=?,idDevise=?,type=? WHERE id=?;";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)){
+                statement.setString(1,toUpdate.getNom_de_compte());
+                statement.setDouble(2,toUpdate.getSolde());
+                statement.setObject(3,toUpdate.getSolde_date_mis_a_jour());
+                statement.setInt(4,toUpdate.getId_devise());
+                statement.setObject(5,toUpdate.getType());
+                statement.setInt(6,toUpdate.getId());
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
         return null;
     }
 }
