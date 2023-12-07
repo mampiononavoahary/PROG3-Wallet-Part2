@@ -31,7 +31,7 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
     @Override
     public List<comptes> findAll() throws SQLException, ClassNotFoundException {
         List<comptes> comptes = new ArrayList<>() ;
-        String sql = "SELECT * FROM Account" ;
+        String sql = "SELECT * FROM compte" ;
         getConnection();
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet =preparedStatement.executeQuery()){
