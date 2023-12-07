@@ -1,0 +1,316 @@
+openapi: '3.0.2'
+info:
+  title: Wallet specification
+  version: '1.0'
+servers:
+  - url: https://api.server.wallet/std22090_std22093
+tags:
+  - name: Account bancaire
+paths:
+  /Account:
+    get:
+      summary: get a list of account
+      description: List of account
+      tags:
+        - "Account bancaire"
+      operationId: getAccount
+      parameters:
+        - name: accountName
+          in: query
+          schema:
+            type: string
+            required: false
+            $ref: "#/components/schemas/Account"
+      responses:
+        200:
+          description: the list of all account
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+    put:
+      summary: updated an or all account
+      description: updated account
+      operationId: upToDateAccount
+      tags:
+        - "Account bancaire"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Account"
+      responses:
+        200:
+          description: account already updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+    post:
+      summary: inserted an or all account
+      description: insert into account
+      operationId: insertAccount
+      tags:
+        - "Account bancaire"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Account"
+      responses:
+        200:
+          description: account inserted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+
+  /transactions:
+    get:
+      summary: get a list of transactions
+      description: the list of transactions
+      tags:
+        - "Account bancaire"
+      operationId: getTransactions
+      parameters:
+        - name: transactionsTypes
+          in: query
+          schema:
+            type: string
+            required: false
+            $ref: "#/components/schemas/TransactionsTypes"
+      responses:
+        200:
+          description: get all transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transactions"
+    put:
+      summary: updated an or all transactions
+      description: updated transactions
+      operationId: updatedTransactions
+      tags:
+        - "Account bancaire"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transactions"
+      responses:
+        200:
+          description: updated transactions without error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transactions"
+    post:
+      summary: inserted one or more transactions
+      description: insert into transactions
+      tags:
+        - "Account bancaire"
+      operationId: insertTransactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transactions"
+      responses:
+        200:
+          description: transactions inserted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transactions"
+
+  /transfers:
+    get:
+      summary: get a list of transfers
+      description: the list of transfers
+      tags:
+        - "Account bancaire"
+      operationId: getTransfers
+      parameters:
+        - name: transferTypes
+          in: query
+          schema:
+            type: string
+            required: false
+            $ref: "#/components/schemas/TransferTypes"
+      responses:
+        200:
+          description: get all transfers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transfer"
+    put:
+      summary: updated an or all transfers
+      description: updated transfers
+      operationId: updatedTransfers
+      tags:
+        - "Account bancaire"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transfer"
+      responses:
+        200:
+          description: updated transfers without error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transfer"
+    post:
+      summary: inserted one or more transfers
+      description: insert into transfers
+      tags:
+        - "Account bancaire"
+      operationId: insertTransfers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transfer"
+      responses:
+        200:
+          description: transfers inserted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transfer"
+
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123456
+        accountName:
+          type: string
+          example: BMOA
+        currency:
+          $ref: "#/components/schemas/Currency"
+        balance:
+          type: integer
+          example: 200000
+        accountType:
+          $ref: "#/components/schemas/AccountType"
+        transactions:
+          $ref: "#/components/schemas/Transactions"
+    AccountType:
+      type: string
+      enum:
+        - EPARGNE
+        - PRINCIPALE
+        - MOBILE
+    Transactions:
+      type: object
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        amount:
+          type: integer
+        typeTransactions:
+          $ref: "#/components/schemas/TransactionsTypes"
+        dateTransactions:
+          type: string
+          format: date
+    TransactionsTypes:
+      type: string
+      enum:
+        - DEBIT
+        - CREDIT
+    Currency:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          $ref: "#/components/schemas/CurrencyName"
+        code:
+          type: string
+          $ref: "#/components/schemas/CurrencyCode"
+    CurrencyName:
+      type: string
+      enum:
+        - ARIARY
+        - EURO
+        - DOLLAR
+        - OTHER
+    CurrencyCode:
+      type: string
+      enum:
+        - MGA (ar)
+        - EUR (€)
+        - USD ($)
+        - OTHER
+    Transfer:
+      type: object
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        amount:
+          type: integer
+        typeTransfers:
+          $ref: "#/components/schemas/TransferTypes"
+        dateTransfers:
+          type: string
+          format: date
+    TransferTypes:
+      type: string
+      enum:
+        - SENT
+        - RECEIVED
+    CurrencyValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        currencyFrom:
+          $ref: "#/components/schemas/CurrencyCode"
+        currencyTo:
+          $ref: "#/components/schemas/CurrencyCode"
+        rate:
+          type: number
+          example: 1.2
