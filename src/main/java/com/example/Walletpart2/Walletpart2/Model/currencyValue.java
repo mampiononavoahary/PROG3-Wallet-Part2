@@ -1,10 +1,5 @@
 package com.example.Walletpart2.Walletpart2.Model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.Date;
 
 public class currencyValue {

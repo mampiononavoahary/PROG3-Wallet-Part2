@@ -70,4 +70,16 @@ public class comptes {
     public void setType(typeCompte type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "comptes{" +
+                "id=" + id +
+                ", nom_de_compte='" + nom_de_compte + '\'' +
+                ", solde=" + solde +
+                ", solde_date_mis_a_jour=" + solde_date_mis_a_jour +
+                ", id_devise=" + id_devise +
+                ", type=" + type +
+                '}';
+    }
 }
