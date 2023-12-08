@@ -44,12 +44,31 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
         }
         return comptes;
     }
+    public List<Double
+            > findSoldeByDate(LocalDateTime date) throws SQLException, ClassNotFoundException {
+        List<Double> soldeList = new ArrayList<>();
+        String sql = "SELECT solde_date_mis_a_jour,solde FROM compte WHERE solde_date_mis_a_jour = ?";
+
+        getConnection();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(date));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                soldeList.add(resultSet.getDouble("solde"));
+            }
+        }
+
+        return soldeList;
+    }
+
 
     @Override
     public List<comptes> saveAll(List<comptes> toSave) {
         List<comptes> arrayComptes = new ArrayList<>();
         try {
-            String sql = "INSERT INTO Comptes(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
                for (comptes compte: toSave){
@@ -78,7 +97,7 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
     @Override
     public comptes save(comptes toSave) {
         try {
-            String sql = "INSERT INTO Compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
 
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
