@@ -2,7 +2,9 @@ package com.example.Walletpart2.Walletpart2.Model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class comptes {
     private int id;
@@ -69,5 +71,23 @@ public class comptes {
 
     public void setType(typeCompte type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "comptes{" +
+                "id=" + id +
+                ", nom_de_compte='" + nom_de_compte + '\'' +
+                ", solde=" + solde +
+                ", solde_date_mis_a_jour=" + solde_date_mis_a_jour +
+                ", id_devise=" + id_devise +
+                ", type=" + type +
+                '}';
+    }
+    public void creditTransactions(Double somme){
+       solde += somme;
+    }
+    public void debitTransactions(Double somme){
+        solde -= somme;
     }
 }
