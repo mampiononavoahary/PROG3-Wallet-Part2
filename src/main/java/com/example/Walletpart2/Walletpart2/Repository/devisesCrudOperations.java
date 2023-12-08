@@ -106,5 +106,6 @@ public class devisesCrudOperations implements CrudOperations<devises>{
            throw new RuntimeException(e);
        }
        return null;
+
     }
 }
