@@ -1,4 +1,6 @@
 package com.example.Walletpart2.Walletpart2.Model;
 
-public class transfertHistory {
+public enum typeTransactions {
+    DEBIT,
+    CREDIT
 }
