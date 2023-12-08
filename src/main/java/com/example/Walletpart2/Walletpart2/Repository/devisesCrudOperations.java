@@ -18,8 +18,8 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     }
     public static devises extractDevise(ResultSet resultSet) throws SQLException {
        int id = resultSet.getInt("devise_id");
-        NomDevises nomDevises = NomDevises.valueOf(resultSet.getString("nomdevise"));
-        CodeDevises codeDevises = CodeDevises.valueOf(resultSet.getString("codedevise"));
+        NomDevises nomDevises = NomDevises.valueOf(resultSet.getString("nom"));
+        CodeDevises codeDevises = CodeDevises.valueOf(resultSet.getString("code"));
 
         return new devises(id,nomDevises,codeDevises);
     }
@@ -45,7 +45,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     public List<devises> saveAll(List<devises> toSave) {
         List<devises> devises = new ArrayList<>();
         try {
-            String sql = "INSERT INTO devises(devise_id,nomdevise,codedevise)VALUES(?,?,?);";
+            String sql = "INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?);";
             getConnection();
             try (PreparedStatement statement  = connection.prepareStatement(sql)){
                 for (devises devise: toSave){
@@ -70,7 +70,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     @Override
     public devises save(devises toSave) {
         try {
-            String sql ="INSERT INTO devises(devise_id,nomdevise,codedevise)VALUES(?,?,?);";
+            String sql ="INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?);";
 
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
@@ -91,7 +91,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     @Override
     public devises update(devises toUpdate) {
        try {
-           String sql = "UPDATE devises SET nomdevise=?,codedevise=? WHERE devise_id=?;";
+           String sql = "UPDATE devises SET nom=?,code=? WHERE devise_id=?;";
            getConnection();
            try (PreparedStatement statement = connection.prepareStatement(sql)){
                statement.setObject(1,toUpdate.getNomDevises(),Types.OTHER);
