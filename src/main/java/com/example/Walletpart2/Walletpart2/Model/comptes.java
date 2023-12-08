@@ -2,7 +2,9 @@ package com.example.Walletpart2.Walletpart2.Model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class comptes {
     private int id;
@@ -81,5 +83,11 @@ public class comptes {
                 ", id_devise=" + id_devise +
                 ", type=" + type +
                 '}';
+    }
+    public void creditTransactions(Double somme){
+       solde += somme;
+    }
+    public void debitTransactions(Double somme){
+        solde -= somme;
     }
 }
