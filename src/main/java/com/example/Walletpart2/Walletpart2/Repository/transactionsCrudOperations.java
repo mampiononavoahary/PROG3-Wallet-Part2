@@ -4,6 +4,7 @@ import com.example.Walletpart2.Walletpart2.Database.ConnectDatabase;
 import com.example.Walletpart2.Walletpart2.Model.comptes;
 import com.example.Walletpart2.Walletpart2.Model.transactions;
 import com.example.Walletpart2.Walletpart2.Model.typeTransactions;
+import com.example.Walletpart2.Walletpart2.Service.TransfertSolde;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -87,9 +88,8 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
                 statement.setDouble(4,toSave.getMontant());
                 statement.setObject(5,toSave.getDate_de_transactions());
                 statement.setObject(6,toSave.getType(),Types.OTHER);
-
                 statement.executeUpdate();
-            }
+                 }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -134,7 +134,7 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
                     String sql = "INSERT INTO transactions (id,id_compte, label,montant ,date_de_transactions,type_de_transactions) " +
                             "VALUES (?, ?, ?, ?, ?,?) " +
                             "ON CONFLICT (id) " +
-                            "DO UPDATE SET amount = EXCLUDED.montant, label = EXCLUDED.label, " +
+                            "DO UPDATE SET montant = EXCLUDED.montant, label = EXCLUDED.label, " +
                             "type_de_transactions = EXCLUDED.type_de_transactions, date_de_transactions = EXCLUDED.date_de_transactions , id_compte = EXCLUDED.id_compte";
                     PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
                     preparedStatement.setInt(1 , transactions.getId());
