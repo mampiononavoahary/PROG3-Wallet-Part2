@@ -15,14 +15,16 @@ public class transactions {
     private double montant;
     private LocalDateTime date_de_transactions;
     private typeTransactions type;
+    private int id_categorie;
 
-    public transactions(int id, int id_compte, String label, double montant, LocalDateTime date_de_transactions, typeTransactions type) {
+    public transactions(int id, int id_compte, String label, double montant, LocalDateTime date_de_transactions, typeTransactions type, int id_categorie) {
         this.id = id;
         this.id_compte = id_compte;
         this.label = label;
         this.montant = montant;
         this.date_de_transactions = date_de_transactions;
         this.type = type;
+        this.id_categorie = id_categorie;
     }
 
     public int getId() {
@@ -73,6 +75,14 @@ public class transactions {
         this.type = type;
     }
 
+    public int getId_categorie() {
+        return id_categorie;
+    }
+
+    public void setId_categorie(int id_categorie) {
+        this.id_categorie = id_categorie;
+    }
+
     @Override
     public String toString() {
         return "transactions{" +
@@ -82,6 +92,7 @@ public class transactions {
                 ", montant=" + montant +
                 ", date_de_transactions=" + date_de_transactions +
                 ", type=" + type +
+                ", id_categorie=" + id_categorie +
                 '}';
     }
 }
