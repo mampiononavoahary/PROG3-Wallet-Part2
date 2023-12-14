@@ -1,7 +1,0 @@
-
-CREATE TABLE IF NOT EXISTS SoldeHistorique (
-     historiqueId INT PRIMARY KEY NOT NULL,
-   transactionId int REFERENCES transactions(id) NOT NULL,
-    compteId int REFERENCES compte(id) NOT NULL,
-    solde double precision
-);
