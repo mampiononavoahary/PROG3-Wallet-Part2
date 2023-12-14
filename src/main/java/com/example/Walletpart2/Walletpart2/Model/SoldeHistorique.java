@@ -1,57 +1,37 @@
 package com.example.Walletpart2.Walletpart2.Model;
 
+import java.time.LocalDateTime;
+
 public class SoldeHistorique {
-    private String historyId ;
-    private String accountId ;
-    private String transactionId ;
-    private Double solde ;
+    private LocalDateTime date;
+    private Double montant;
 
-    public SoldeHistorique(String historyId, String accountId, String transactionId, Double solde) {
-        this.historyId = historyId;
-        this.accountId = accountId;
-        this.transactionId = transactionId;
-        this.solde = solde;
+    public SoldeHistorique(LocalDateTime date, Double montant) {
+        this.date = date;
+        this.montant = montant;
     }
 
-    public String getHistoryId() {
-        return historyId;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setHistoryId(String historyId) {
-        this.historyId = historyId;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public Double getMontant() {
+        return montant;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public Double getSolde() {
-        return solde;
-    }
-
-    public void setSolde(Double solde) {
-        this.solde = solde;
+    public void setMontant(Double montant) {
+        this.montant = montant;
     }
 
     @Override
     public String toString() {
         return "SoldeHistorique{" +
-                "historyId='" + historyId + '\'' +
-                ", accountId='" + accountId + '\'' +
-                ", transactionId='" + transactionId + '\'' +
-                ", solde=" + solde +
+                "date=" + date +
+                ", montant=" + montant +
                 '}';
     }
 }

@@ -131,7 +131,7 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
                 BigDecimal updatedSoldeBigDecimal = soldeBigDecimal.add(montantBigDecimal);
                 Double updatedSoldeDouble = updatedSoldeBigDecimal.doubleValue();
                 try{
-                    String sql = "INSERT INTO Transaction (id,id_compte, label,montant ,date_de_transactions,type_de_transactions) " +
+                    String sql = "INSERT INTO transactions (id,id_compte, label,montant ,date_de_transactions,type_de_transactions) " +
                             "VALUES (?, ?, ?, ?, ?,?) " +
                             "ON CONFLICT (id) " +
                             "DO UPDATE SET amount = EXCLUDED.montant, label = EXCLUDED.label, " +
@@ -161,11 +161,11 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
                 BigDecimal updatedSolde = solde1.add(montant2);
                 Double updatedSolde2 = updatedSolde.doubleValue();
                 try {
-                    String sql = "INSERT INTO Transaction (id, label, amount ,date,type, id_account) " +
+                    String sql = "INSERT INTO transactions (id,id_compte, label,montant ,date_de_transactions,type_de_transactions) " +
                             "VALUES (?, ?, ?, ?, ?,?) " +
                             "ON CONFLICT (id) " +
-                            "DO UPDATE SET amount = EXCLUDED.amount, label = EXCLUDED.label, " +
-                            "type = EXCLUDED.type, date = EXCLUDED.date , id_account = EXCLUDED.id_account";
+                            "DO UPDATE SET montant = EXCLUDED.montant, label = EXCLUDED.label, " +
+                            "type = EXCLUDED.type_de_transaction, date = EXCLUDED.date_de_transaction , id_compte = EXCLUDED.id_account";
                     PreparedStatement preparedStatement = connection.prepareStatement(sql) ;
                     preparedStatement.setInt(1 , transactions.getId());
                     preparedStatement.setInt(2 , transactions.getId_compte());
