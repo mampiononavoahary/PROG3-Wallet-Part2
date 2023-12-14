@@ -50,7 +50,7 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
     public List<transactions> saveAll(List<transactions> toSave) {
         List<transactions> transactions = new ArrayList<>();
         try {
-            String sql = "INSERT INTO transactions(id,id_compte,label,montant,date_de_transacitons,type_de_transactions)VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO transactions(id,id_compte,label,montant,date_de_transacitons,type_de_transactions)VALUES(?,?,?,?,?,?) on conflict do nothing;";
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
                 for (transactions transaction : toSave){
@@ -78,7 +78,7 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
     @Override
     public transactions save(transactions toSave) {
         try {
-            String sql =" INSERT INTO transactions(id,id_compte,label,montant,date_de_transactions,type_de_transactions)VALUES(?,?,?,?,?,?); ";
+            String sql =" INSERT INTO transactions(id,id_compte,label,montant,date_de_transactions,type_de_transactions)VALUES(?,?,?,?,?,?) ON conflict do nothing; ";
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
                 statement.setInt(1,toSave.getId());
@@ -175,10 +175,10 @@ public class transactionsCrudOperations implements CrudOperations<transactions>{
                     preparedStatement.setObject(6 ,transactions.getType(), Types.OTHER);
                     preparedStatement.executeUpdate();
                     String update = "UPDATE compte SET solde = ? WHERE id = ?" ;
-                    PreparedStatement ps = connection.prepareStatement(update) ;
-                    ps.setDouble(1  , updatedSolde2);
-                    ps.setInt(2 ,comptes.getId());
-                    ps.executeUpdate() ;
+                    PreparedStatement preparedStatement1 = connection.prepareStatement(update) ;
+                    preparedStatement1.setDouble(1  , updatedSolde2);
+                    preparedStatement1.setInt(2 ,comptes.getId());
+                    preparedStatement1.executeUpdate() ;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

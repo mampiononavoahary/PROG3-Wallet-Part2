@@ -18,9 +18,9 @@ public class SoldeHistoryCrudOperations {
     public static void historyOfBalanceOfAccount(LocalDateTime DateDebutHistorique, LocalDateTime DateFinHistorique, comptes compte) throws SQLException, ClassNotFoundException {
         getConnection();
         try{
-            String sql = "SELECT SoldeHistorique.solde FROM SoldeHistorique.solde \n" +
-                    "inner join compte ON SoldeHistorique.compteId = compte.id \n" +
-                    "inner join transactions ON SoldeHistorique.transactionId = transactions.id \n" +
+            String sql = "SELECT soldehistorique.solde FROM soldehistorique \n" +
+                    "inner join compte ON soldehistorique.compteId = compte.id \n" +
+                    "inner join transactions ON soldehistorique.transactionId = transactions.id \n" +
                     "WHERE compte.id= ? AND transactions.date_de_transactions BETWEEN ? AND ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,compte.getId());

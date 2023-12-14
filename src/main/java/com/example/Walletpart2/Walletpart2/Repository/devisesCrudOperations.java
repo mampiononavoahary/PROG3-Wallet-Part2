@@ -45,7 +45,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     public List<devises> saveAll(List<devises> toSave) {
         List<devises> devises = new ArrayList<>();
         try {
-            String sql = "INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?);";
+            String sql = "INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?) on conflict do nothing;";
             getConnection();
             try (PreparedStatement statement  = connection.prepareStatement(sql)){
                 for (devises devise: toSave){
@@ -70,7 +70,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     @Override
     public devises save(devises toSave) {
         try {
-            String sql ="INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?);";
+            String sql ="INSERT INTO devises(devise_id,nom,code)VALUES(?,?,?) on conflict do nothing;";
 
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
@@ -89,7 +89,7 @@ public class devisesCrudOperations implements CrudOperations<devises>{
     }
 
     @Override
-    public devises update(devises toUpdate) {
+    public devises  update(devises toUpdate) {
        try {
            String sql = "UPDATE devises SET nom=?,code=? WHERE devise_id=?;";
            getConnection();
@@ -102,8 +102,8 @@ public class devisesCrudOperations implements CrudOperations<devises>{
            }
        } catch (SQLException e) {
            throw new RuntimeException(e);
-       } catch (ClassNotFoundException e) {
-           throw new RuntimeException(e);
+       } catch (Exception e) {
+           e.printStackTrace();
        }
        return null;
 
