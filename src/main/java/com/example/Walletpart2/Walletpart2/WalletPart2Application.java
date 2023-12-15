@@ -3,6 +3,7 @@ package com.example.Walletpart2.Walletpart2;
 import com.example.Walletpart2.Walletpart2.Service.FunctionSqlGetAmountNet;
 import com.example.Walletpart2.Walletpart2.Service.GetSumCreditmonsDebitOfCategorie;
 import com.example.Walletpart2.Walletpart2.Tests.*;
+import com.example.Walletpart2.Walletpart2.Tests.GetAmountDebitCreditTests.GetAmountDebitCreditTests;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -23,6 +24,7 @@ public class WalletPart2Application {
 
 		FunctionSqlGetAmountNetTests.FunctionSqlGetAmountNetTests();
 
+		GetAmountDebitCreditTests.GetAmountDebitCreditTests();
 	}
 
 }
