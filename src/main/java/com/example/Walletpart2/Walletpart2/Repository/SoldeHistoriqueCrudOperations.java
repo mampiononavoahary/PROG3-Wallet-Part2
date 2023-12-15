@@ -2,11 +2,9 @@ package com.example.Walletpart2.Walletpart2.Repository;
 
 import com.example.Walletpart2.Walletpart2.Database.ConnectDatabase;
 import com.example.Walletpart2.Walletpart2.Model.SoldeHistorique;
+import com.example.Walletpart2.Walletpart2.Model.comptes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +43,27 @@ public class SoldeHistoriqueCrudOperations {
             e.printStackTrace();
         }
         return soldeHistoriques;
+    }
+    public void historyOfBalanceOfAccount(int id_compte, Timestamp DateDebutHistorique, Timestamp DateFinHistorique) throws SQLException, ClassNotFoundException {
+        getConnection();
+        try{
+            String sql = "SELECT soldehistorique.solde FROM soldehistorique \n" +
+                    "inner join compte ON soldehistorique.compteId = compte.id \n" +
+                    "inner join transactions ON soldehistorique.transactionId = transactions.id \n" +
+                    "WHERE compte.id= ? AND transactions.date_de_transactions BETWEEN ? AND ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id_compte);
+            statement.setTimestamp(2,DateDebutHistorique);
+            statement.setTimestamp(3,DateFinHistorique);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Double solde = resultSet.getDouble("solde");
+                System.out.println("Historique solde transfert: "+solde);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

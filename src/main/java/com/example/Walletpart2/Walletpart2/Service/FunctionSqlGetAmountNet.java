@@ -24,7 +24,7 @@ public class FunctionSqlGetAmountNet {
             while (resultSet.next()){
                 Double solde = resultSet.getDouble("total_amount");
 
-                System.out.println("This is the sum of amount net: \n" +solde);
+                System.out.println("This is the sum of amount net: \n  -totalNet: " +solde);
             }
 
         }catch (Exception e){

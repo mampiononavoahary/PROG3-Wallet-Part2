@@ -28,7 +28,7 @@ public class GetSumCreditDebit {
                 Double solde = resultSet.getDouble("totalCredit");
                 Double solde2 = resultSet.getDouble("totalDebit");
                 Double montantNet = solde-solde2;
-                System.out.println("credit: "+solde+ "  debit:"+solde2+ "MontantNet: "+montantNet);
+                System.out.println("credit: \n"+" ==>"+solde+"\n debit: \n"+"==>"+solde2+ "\nMontantNet: \n"+"==>"+montantNet);
             }
         }catch (Exception e){
             e.printStackTrace();
