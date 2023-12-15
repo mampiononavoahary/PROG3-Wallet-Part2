@@ -44,10 +44,9 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
         }
         return comptes;
     }
-    public List<Double
-            > findSoldeByDate(LocalDateTime date) throws SQLException, ClassNotFoundException {
+    public List<Double> findSoldeByDate(LocalDateTime date) throws SQLException, ClassNotFoundException {
         List<Double> soldeList = new ArrayList<>();
-        String sql = "SELECT solde_date_mis_a_jour,solde FROM compte WHERE solde_date_mis_a_jour = ?";
+        String sql = "SELECT solde FROM compte WHERE solde_date_mis_a_jour = ?";
 
         getConnection();
 
@@ -57,6 +56,9 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
 
             while (resultSet.next()) {
                 soldeList.add(resultSet.getDouble("solde"));
+            }
+            for (Double sold : soldeList){
+                System.out.println("the sold list : "+sold+" Ar");
             }
         }
 
@@ -68,7 +70,7 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
     public List<comptes> saveAll(List<comptes> toSave) {
         List<comptes> arrayComptes = new ArrayList<>();
         try {
-            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?) on conflict do nothing;";
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){
                for (comptes compte: toSave){
@@ -97,7 +99,7 @@ public class comptesCrudOperations implements CrudOperations<comptes>{
     @Override
     public comptes save(comptes toSave) {
         try {
-            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?);";
+            String sql = "INSERT INTO compte(id,nom_de_compte,solde,solde_date_mis_a_jour,devise_id,type_compte) VALUES(?,?,?,?,?,?) on conflict do nothing;";
 
             getConnection();
             try (PreparedStatement statement = connection.prepareStatement(sql)){

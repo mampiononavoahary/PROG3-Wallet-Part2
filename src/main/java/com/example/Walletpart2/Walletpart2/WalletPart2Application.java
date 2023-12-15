@@ -1,8 +1,9 @@
 package com.example.Walletpart2.Walletpart2;
 
-import com.example.Walletpart2.Walletpart2.Tests.DevisesTests;
-import com.example.Walletpart2.Walletpart2.Tests.TransactionTests;
-import com.example.Walletpart2.Walletpart2.Tests.compteTests;
+import com.example.Walletpart2.Walletpart2.Service.FunctionSqlGetAmountNet;
+import com.example.Walletpart2.Walletpart2.Service.GetSumCreditmonsDebitOfCategorie;
+import com.example.Walletpart2.Walletpart2.Tests.*;
+import com.example.Walletpart2.Walletpart2.Tests.GetAmountDebitCreditTests.GetAmountDebitCreditTests;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,12 +13,18 @@ import java.sql.SQLException;
 public class WalletPart2Application {
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
-		compteTests compteTests = new compteTests();
 		DevisesTests devisesTests = new DevisesTests();
 		TransactionTests transactionTests = new TransactionTests();
 		TransactionTests.transactionTest();
-//		DevisesTests.DevisesTest();
-//
+		DevisesTests.DevisesTest();
+		compteTests.compteTets();
+		SoldeHistoryTests.SoldeHitoryTests();
+		GetMontantNetTests.GetMontantNetTests();
+		GetSumRestaurantSalaireTests.GetSumRestaurantSalaireTests();
+
+		FunctionSqlGetAmountNetTests.FunctionSqlGetAmountNetTests();
+
+		GetAmountDebitCreditTests.GetAmountDebitCreditTests();
 	}
 
 }
